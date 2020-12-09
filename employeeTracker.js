@@ -24,7 +24,7 @@ const connection = mysql.createConnection({
       name: "todo",
       type: "list",
       message: "What would you like to do?",
-      choices: ["View all Employees", "Add Employee","Exit"]
+      choices: ["View all Employees", "Add Employee","Update Employee","Exit"]
     })
     .then(function(answer) {
         if (answer.todo === "View all Employees") {
@@ -32,6 +32,9 @@ const connection = mysql.createConnection({
           }
           else if(answer.todo === "Add Employee") {
             addEmployee();
+          } 
+          else if(answer.todo === "Update Employee") {
+            updateEmployee();
           } 
           else{
             connection.end();
@@ -105,6 +108,7 @@ const connection = mysql.createConnection({
             function(err) {
               if (err) throw err;
               console.log("Your Employee was successfully added!");
+
               init();
             }
           );
@@ -113,4 +117,49 @@ const connection = mysql.createConnection({
          
       };
   
+      function updateEmployee(){
+        var employee =[];
+          var query = connection.query("SELECT * FROM employee", function(err, res){
+           
+            inquirer
+            .prompt([
+              {
+                name: "employee",
+                type: "list",
+                choices: function() {
+                  var choiceArray = [];
+                  for (var i = 0; i < res.length; i++) {
+                    choiceArray.push(res[i].first_name + " " + res[i].last_name );
+                  }
+                  return choiceArray;
+                }
+            }
+
+        ]).then(function(answer) {
+        
+        });
+    });
+
+};
+
+        // connection.query(
+        //     "Update employee SET ?",
+        // inquirer
+        // .prompt({
+        //   name: "first",
+        //   type: "input",
+        //   message: "Which employee would you like to update?"
+        // })
+        // .then(function(answer) {
+        //   var query = "SELECT first_name, last_name, role_id, manager_id FROM top5000 WHERE ?";
+        //   connection.query(query, { artist: answer.artist }, function(err, res) {
+        //     if (err) throw err;
+        //     for (var i = 0; i < res.length; i++) {
+        //       console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
+        //     }
+        //     runSearch();
+        //   });
+        // }));
     
+  
+     
