@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS employeesDB;
-CREATE database employeesDB;
+DROP DATABASE IF EXISTS employees_DB;
+CREATE database employees_DB;
 
-USE employeesDB;
+USE employees_DB;
 
 CREATE TABLE department(
     id INT PRIMARY KEY NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE role(
 );
 
 CREATE TABLE employee(
-    id - INT PRIMARY KEY NULL,
+    id INT PRIMARY KEY NOT NULL,
     first_name VARCHAR(30) NULL, 
     last_name VARCHAR(30) NULL, 
     role_id INT NULL, 
