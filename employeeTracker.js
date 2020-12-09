@@ -50,5 +50,67 @@ const connection = mysql.createConnection({
 
        init();
     };
-
-   
+    function addEmployee (){
+        inquirer
+        .prompt([
+          {
+              name: "firstName",
+              type: "input",
+              message: "What is the employee's first name?"
+            },
+            {
+              name: "lastName",
+              type: "input",
+              message: "What is the employee's last name?"
+            },
+            {
+              name: "role",
+              type: "list",
+              message: "What is the employee's role?",
+              choices : ["Sales Lead", "Salesperson", "Lead Engineer","Software Engineer", "Legal Team Lead","Lawyer"]
+            }
+  
+        ]).then(function(answer) {
+          
+          switch(answer.role){
+  
+          case "Sales Lead": answer.role = 1;
+          break;
+  
+          case "Salesperson": answer.role = 1;
+          break;
+  
+          case "Software Engineer": answer.role = 2;
+          break;
+  
+          case "Lead Engineer": answer.role = 2;
+          break;
+  
+          case "Legal Team Lead": answer.role = 3;
+          break;
+  
+          case "Lawyer": answer.role = 3;
+          break;
+  
+          }
+  
+          connection.query(
+            "INSERT INTO employee SET ?",
+            {
+              first_name: answer.firstName,
+              last_name: answer.lastName,
+              role_id: answer.role || 0,
+            },
+  
+            function(err) {
+              if (err) throw err;
+              console.log("Your Employee was successfully added!");
+              init();
+            }
+          );
+        });
+  
+         
+      };
+  
+    
