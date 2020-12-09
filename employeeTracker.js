@@ -39,7 +39,16 @@ const connection = mysql.createConnection({
         });
     }
   
-    function viewEmployees (){};
-    function addEmployee (){};
+    function viewEmployees (){
+        var query = connection.query(`SELECT employee.id, first_name as First_Name, last_name as Last_Name, title as Job_Title, salary as Salary, name as Department
+        FROM ((employee
+        INNER JOIN role ON employee.role_id = role.id)
+        INNER JOIN department ON role.department_id = department.id)
+        `, function(err, res){
+            console.table(res);
+        });
 
+       init();
+    };
 
+   
