@@ -75,28 +75,27 @@ const connection = mysql.createConnection({
   
         ]).then(function(answer) {
           
-          switch(answer.role){
+            switch(answer.role){
   
-          case "Sales Lead": answer.role = 1;
-          break;
-  
-          case "Salesperson": answer.role = 1;
-          break;
-  
-          case "Software Engineer": answer.role = 2;
-          break;
-  
-          case "Lead Engineer": answer.role = 2;
-          break;
-  
-          case "Legal Team Lead": answer.role = 3;
-          break;
-  
-          case "Lawyer": answer.role = 3;
-          break;
-  
-          }
-  
+                 case "Sales Lead": answer.role = 1;
+                 break;
+                            
+                 case "Salesperson": answer.role = 1;
+                 break;
+
+                 case "Software Engineer": answer.role = 2;
+                 break;
+                            
+                 case "Lead Engineer": answer.role = 2;
+                 break;
+                            
+                 case "Legal Team Lead": answer.role = 3;
+                 break;
+                            
+                 case "Lawyer": answer.role = 3;
+                 break;
+              }
+                
           connection.query(
             "INSERT INTO employee SET ?",
             {
@@ -117,30 +116,81 @@ const connection = mysql.createConnection({
          
       };
   
-      function updateEmployee(){
-        var employee =[];
-          var query = connection.query("SELECT * FROM employee", function(err, res){
+//       function updateEmployee(){
+//         var employee =[];
+//           var query = connection.query("SELECT * FROM employee", function(err, res){
            
-            inquirer
-            .prompt([
-              {
-                name: "employee",
-                type: "list",
-                choices: function() {
-                  var choiceArray = [];
-                  for (var i = 0; i < res.length; i++) {
-                    choiceArray.push(res[i].first_name + " " + res[i].last_name );
-                  }
-                  return choiceArray;
-                }
-            }
+//             inquirer
+//             .prompt([
+//               {
+//                 name: "employee",
+//                 type: "list",
+//                 choices: function() {
+//                   var choiceArray = [];
+//                   for (var i = 0; i < res.length; i++) {
+//                     choiceArray.push(res[i].first_name + " " + res[i].last_name );
+//                   }
+//                   return choiceArray;
+//                 }
+//             }
 
-        ]).then(function(answer) {
-        
-        });
-    });
+//         ]).then(function(answer) {
+//             for(var i = 0; i < res.length; i++){
+//         var fullName = res[i].first_name + " " + res[i].last_name;
 
-};
+//         if(fullName === answer){
+//             inquirer
+//             .prompt([
+//               {
+//                 name: "role",
+//                 type: "list",
+//                 message:"What is the employee's new role?",
+//                 choices: ["Sales Lead", "Salesperson", "Lead Engineer","Software Engineer", "Legal Team Lead","Lawyer"]
+//               }
+//               ]).then(function (newRole) {
+//                 switch(newRole.role){
+  
+//                     case "Sales Lead": newRole.role = 1;
+//                     break;
+            
+//                     case "Salesperson": newRole.role = 1;
+//                     break;
+            
+//                     case "Software Engineer": newRole.role = 2;
+//                     break;
+            
+//                     case "Lead Engineer": newRole.role = 2;
+//                     break;
+            
+//                     case "Legal Team Lead": newRole.role = 3;
+//                     break;
+            
+//                     case "Lawyer": newRole.role = 3;
+//                     break;
+            
+//                     }
+
+//                 connection.query(
+//                     "UPDATE employee SET ? WHERE ?",
+//                     [
+//                       {
+//                         role_id: newRole.role
+//                       }
+                    
+//                     ],
+//                     function(error) {
+//                       if (error) throw err;
+//                       console.log("The employee's role has been updated!");
+//                       init();
+//                     }
+//                   );
+//               })
+//              }
+//             }
+//         });
+//     });
+
+// };
 
         // connection.query(
         //     "Update employee SET ?",
